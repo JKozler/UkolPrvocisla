@@ -31,7 +31,7 @@
                     <ComboBox Grid.Row="3" Margin="10,0,10,0" x:Name="maxNumber"></ComboBox>
                 </Grid>
             </Border>
-            <TextBox Grid.Row="1" Margin="5" BorderBrush="Black" IsEnabled="False" TextWrapping="Wrap"></TextBox>
+            <TextBox x:Name="tbWriteNumbers" Grid.Row="1" Margin="5" BorderBrush="Black" IsEnabled="True" TextWrapping="Wrap"></TextBox>
         </Grid>
     </Border>
 </Window>
