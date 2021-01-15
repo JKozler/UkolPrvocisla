@@ -34,7 +34,8 @@ namespace UkolPrvocisla
 
         private void findPrime_Click(object sender, RoutedEventArgs e)
         {
-
+            if (variants.SelectedItem == null || maxNumber.SelectedItem == null)
+                MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
         }
     }
 }
