@@ -23,6 +23,18 @@ namespace UkolPrvocisla
         public MainWindow()
         {
             InitializeComponent();
+            variants.Items.Add("Find all prime number.");
+            variants.Items.Add("Find all prime numbers with 2 numbers.");
+            variants.Items.Add("Find all prime numbers with 3 numbers.");
+            maxNumber.Items.Add("100");
+            maxNumber.Items.Add("10000");
+            maxNumber.Items.Add("1000000");
+            maxNumber.Items.Add("100000000");
+        }
+
+        private void findPrime_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

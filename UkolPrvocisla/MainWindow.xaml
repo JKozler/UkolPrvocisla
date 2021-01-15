@@ -7,6 +7,31 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Border>
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Select variant:"></Label>
+                    <ComboBox Grid.Row="1" Margin="10,0,10,0" x:Name="variants"></ComboBox>
+                    <Button Grid.RowSpan="4" Grid.Column="2" Margin="20" Content="Find" FontSize="30" x:Name="findPrime" Click="findPrime_Click"></Button>
+                    <Label Grid.Row="2" Content="Select max value:"></Label>
+                    <ComboBox Grid.Row="3" Margin="10,0,10,0" x:Name="maxNumber"></ComboBox>
+                </Grid>
+            </Border>
+            <TextBox Grid.Row="1" Margin="5" BorderBrush="Black" IsEnabled="False" TextWrapping="Wrap"></TextBox>
+        </Grid>
     </Border>
 </Window>
