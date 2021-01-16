@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,33 +23,54 @@ namespace UkolPrvocisla
     public partial class MainWindow : Window
     {
         bool con = false;
+        int ind = 0;
+        public event PropertyChangedEventHandler PropertyChanged;
+        static CancellationTokenSource cts;
+        CancellationToken ct;
         public MainWindow()
         {
             InitializeComponent();
-            variants.Items.Add("Find all prime number.");
-            variants.Items.Add("Find all prime numbers with 2 numbers.");
-            variants.Items.Add("Find all prime numbers with 3 numbers.");
             maxNumber.Items.Add("100");
             maxNumber.Items.Add("10000");
             maxNumber.Items.Add("1000000");
             maxNumber.Items.Add("100000000");
         }
-
-        private async void findPrime_Click(object sender, RoutedEventArgs e)
+        private async Task LoadAnimAsync()
         {
-            if (variants.SelectedItem == null || maxNumber.SelectedItem == null)
-                MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
-            tbWriteNumbers.Clear();
-            if (variants.SelectedItem.ToString() == "Find all prime number.")
-                IsPrime(Convert.ToInt32(maxNumber.SelectedItem.ToString()));
+            await Task.Run(() => {
+                while (ct.IsCancellationRequested == false)
+                {
+                    load.Content = "-";
+                    Thread.Sleep(500);
+                    load.Content = "\\";
+                    Thread.Sleep(500);
+                    load.Content = "|";
+                    Thread.Sleep(500);
+                    load.Content = "/";
+                    Thread.Sleep(500);
+                }
+            });
         }
 
-        public async void IsPrime(int number)
+        private async void showLoad_Click(object sender, RoutedEventArgs e)
         {
+            await LoadAnimAsync();
+        }
+
+        private async void allPrimeNumbers_Click(object sender, RoutedEventArgs e)
+        {
+            if (maxNumber.SelectedItem == null) {
+                MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
+                return;
+            }
+
+            int number = Convert.ToInt32(maxNumber.SelectedItem);
             string text = "";
+            cts = new CancellationTokenSource();
+            ct = cts.Token;
             await Task.Run(() =>
             {
-                for(int i = 1; i < number; i++)
+                for (int i = 1; i < number; i++)
                 {
                     if (i <= 1) continue;
                     if (i == 2)
@@ -71,9 +94,100 @@ namespace UkolPrvocisla
 
                     text += i + ", ";
                 }
+                cts.Cancel();
             });
-
             tbWriteNumbers.Text = text;
+
+        }
+
+        private async void allPrimeNumbersEndThree_Click(object sender, RoutedEventArgs e)
+        {
+            if (maxNumber.SelectedItem == null)
+            {
+                MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
+                return;
+            }
+
+            int number = Convert.ToInt32(maxNumber.SelectedItem);
+            string text = "";
+            cts = new CancellationTokenSource();
+            ct = cts.Token;
+            await Task.Run(() =>
+            {
+                for (int i = 1; i < number; i++)
+                {
+                    if (i <= 1) continue;
+                    if (i == 2)
+                    {
+                        if (i % (10) == 3)
+                            text += i + ", ";
+                        continue;
+                    }
+                    if (i % 2 == 0) continue;
+
+                    var boundary = (int)Math.Floor(Math.Sqrt(i));
+
+                    for (int y = 3; y <= boundary; y += 2)
+                        if (i % y == 0)
+                            con = true;
+
+                    if (con)
+                    {
+                        con = false;
+                        continue;
+                    }
+
+                    if (i % (10) == 3)
+                        text += i + ", ";
+                }
+                cts.Cancel();
+            });
+            tbWriteNumbersTwo.Text = text;
+        }
+
+        private async void allPrimeNumbersEndSeven_Click(object sender, RoutedEventArgs e)
+        {
+            if (maxNumber.SelectedItem == null)
+            {
+                MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
+                return;
+            }
+
+            int number = Convert.ToInt32(maxNumber.SelectedItem);
+            string text = "";
+            cts = new CancellationTokenSource();
+            ct = cts.Token;
+            await Task.Run(() =>
+            {
+                for (int i = 1; i < number; i++)
+                {
+                    if (i <= 1) continue;
+                    if (i == 2)
+                    {
+                        if (i % (10) == 7)
+                            text += i + ", ";
+                        continue;
+                    }
+                    if (i % 2 == 0) continue;
+
+                    var boundary = (int)Math.Floor(Math.Sqrt(i));
+
+                    for (int y = 3; y <= boundary; y += 2)
+                        if (i % y == 0)
+                            con = true;
+
+                    if (con)
+                    {
+                        con = false;
+                        continue;
+                    }
+
+                    if (i % (10) == 7)
+                        text += i + ", ";
+                }
+                cts.Cancel();
+            });
+            tbWriteNumbersThree.Text = text;
         }
     }
 }

@@ -15,8 +15,9 @@
             <Border>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -24,14 +25,26 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Select variant:"></Label>
-                    <ComboBox Grid.Row="1" Margin="10,0,10,0" x:Name="variants"></ComboBox>
-                    <Button Grid.RowSpan="4" Grid.Column="2" Margin="20" Content="Find" FontSize="30" x:Name="findPrime" Click="findPrime_Click"></Button>
-                    <Label Grid.Row="2" Content="Select max value:"></Label>
-                    <ComboBox Grid.Row="3" Margin="10,0,10,0" x:Name="maxNumber"></ComboBox>
+                    <Button Grid.Row="0" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime number." x:Name="allPrimeNumbers" Click="allPrimeNumbers_Click"></Button>
+                    <Button Grid.Row="1" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime numbers which ends with number 3." x:Name="allPrimeNumbersEndThree" Click="allPrimeNumbersEndThree_Click"></Button>
+                    <Button Grid.Row="2" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime numbers which ends with number 7." x:Name="allPrimeNumbersEndSeven" Click="allPrimeNumbersEndSeven_Click"></Button>
+                    <Label x:Name="load" Content="" FontSize="60" Grid.Column="2" Grid.RowSpan="4" HorizontalAlignment="Center"></Label>
+                    <Label Grid.Row="0" Content="Select max value:"></Label>
+                    <ComboBox Grid.Row="1" Margin="10,0,10,0" x:Name="maxNumber"></ComboBox>
                 </Grid>
             </Border>
-            <TextBox x:Name="tbWriteNumbers" Grid.Row="1" Margin="5" BorderBrush="Black" IsEnabled="True" TextWrapping="Wrap"></TextBox>
+            <Border Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="tbWriteNumbers" Grid.Column="0" Margin="5" BorderBrush="Black" IsEnabled="True" TextWrapping="Wrap"></TextBox>
+                    <TextBox x:Name="tbWriteNumbersTwo" Grid.Column="1" Margin="5" BorderBrush="Black" IsEnabled="True" TextWrapping="Wrap"></TextBox>
+                    <TextBox x:Name="tbWriteNumbersThree" Grid.Column="2" Margin="5" BorderBrush="Black" IsEnabled="True" TextWrapping="Wrap"></TextBox>
+                </Grid>
+            </Border>
         </Grid>
     </Border>
 </Window>
