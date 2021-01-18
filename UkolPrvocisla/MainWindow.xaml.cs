@@ -27,6 +27,9 @@ namespace UkolPrvocisla
         public event PropertyChangedEventHandler PropertyChanged;
         static CancellationTokenSource cts;
         CancellationToken ct;
+        bool one = false;
+        bool two = false;
+        bool three = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -57,12 +60,41 @@ namespace UkolPrvocisla
             await LoadAnimAsync();
         }
 
+        public byte CheckTextBoxes()
+        {
+            byte i = 0;
+            if (!one && !two && !three) {
+                one = true;
+                i = 1;
+            }
+            else if (one && !two && !three) {
+                two = true;
+                i = 2;
+            }
+            else if (one && two && !three) {
+                three = true;
+                i = 3;
+            }
+            else
+            {
+                tbWriteNumbers.Clear();
+                tbWriteNumbersThree.Clear();
+                tbWriteNumbersTwo.Clear();
+                one = true;
+                two = false;
+                three = false;
+                i = 1;
+            }
+            return i;
+        }
+
         private async void allPrimeNumbers_Click(object sender, RoutedEventArgs e)
         {
             if (maxNumber.SelectedItem == null) {
                 MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
                 return;
             }
+            byte z = CheckTextBoxes();
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
             string text = "";
@@ -96,7 +128,12 @@ namespace UkolPrvocisla
                 }
                 cts.Cancel();
             });
-            tbWriteNumbers.Text = text;
+            if (z == 1)
+                tbWriteNumbers.Text = text;
+            else if (z == 2)
+                tbWriteNumbersTwo.Text = text;
+            else if (z == 3)
+                tbWriteNumbersThree.Text = text;
 
         }
 
@@ -107,6 +144,7 @@ namespace UkolPrvocisla
                 MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
                 return;
             }
+            byte z = CheckTextBoxes();
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
             string text = "";
@@ -142,7 +180,12 @@ namespace UkolPrvocisla
                 }
                 cts.Cancel();
             });
-            tbWriteNumbersTwo.Text = text;
+            if (z == 1)
+                tbWriteNumbers.Text = text;
+            else if (z == 2)
+                tbWriteNumbersTwo.Text = text;
+            else if (z == 3)
+                tbWriteNumbersThree.Text = text;
         }
 
         private async void allPrimeNumbersEndSeven_Click(object sender, RoutedEventArgs e)
@@ -152,6 +195,7 @@ namespace UkolPrvocisla
                 MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
                 return;
             }
+            byte z = CheckTextBoxes();
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
             string text = "";
@@ -187,7 +231,12 @@ namespace UkolPrvocisla
                 }
                 cts.Cancel();
             });
-            tbWriteNumbersThree.Text = text;
+            if (z == 1)
+                tbWriteNumbers.Text = text;
+            else if (z == 2)
+                tbWriteNumbersTwo.Text = text;
+            else if (z == 3)
+                tbWriteNumbersThree.Text = text;
         }
     }
 }
