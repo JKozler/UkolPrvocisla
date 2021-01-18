@@ -222,7 +222,7 @@ namespace UkolPrvocisla
                 tbWriteNumbersThree.Text = text;
         }
 
-        private async Task<int> TocSeVrtuleAsync()
+        private async Task<int> Load()
         {
             int i = 0;
 
@@ -245,7 +245,8 @@ namespace UkolPrvocisla
 
         private async void showLoadingAnim_Click(object sender, RoutedEventArgs e)
         {
-            int i = await TocSeVrtuleAsync();
+            CharLoad = "test";
+            int i = await Load();
             CharLoad = (i / 2).ToString() + "sec";
         }
 
