@@ -38,27 +38,6 @@ namespace UkolPrvocisla
             maxNumber.Items.Add("1000000");
             maxNumber.Items.Add("100000000");
         }
-        private async Task LoadAnimAsync()
-        {
-            await Task.Run(() => {
-                while (ct.IsCancellationRequested == false)
-                {
-                    load.Content = "-";
-                    Thread.Sleep(500);
-                    load.Content = "\\";
-                    Thread.Sleep(500);
-                    load.Content = "|";
-                    Thread.Sleep(500);
-                    load.Content = "/";
-                    Thread.Sleep(500);
-                }
-            });
-        }
-
-        private async void showLoad_Click(object sender, RoutedEventArgs e)
-        {
-            await LoadAnimAsync();
-        }
 
         public byte CheckTextBoxes()
         {
@@ -94,6 +73,8 @@ namespace UkolPrvocisla
                 MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
                 return;
             }
+            cts = new CancellationTokenSource();
+            ct = cts.Token;
             byte z = CheckTextBoxes();
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
@@ -144,6 +125,8 @@ namespace UkolPrvocisla
                 MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
                 return;
             }
+            cts = new CancellationTokenSource();
+            ct = cts.Token;
             byte z = CheckTextBoxes();
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
@@ -195,6 +178,8 @@ namespace UkolPrvocisla
                 MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
                 return;
             }
+            cts = new CancellationTokenSource();
+            ct = cts.Token;
             byte z = CheckTextBoxes();
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
@@ -237,6 +222,28 @@ namespace UkolPrvocisla
                 tbWriteNumbersTwo.Text = text;
             else if (z == 3)
                 tbWriteNumbersThree.Text = text;
+        }
+
+        private async Task Load()
+        {
+            await Task.Run(() => {
+                while (ct.IsCancellationRequested == false)
+                {
+                    load.Content = "-";
+                    Thread.Sleep(500);
+                    load.Content = "|";
+                    Thread.Sleep(500);
+                    load.Content = "\\";
+                    Thread.Sleep(500);
+                    load.Content = "/";
+                    Thread.Sleep(500);
+                }
+            });
+        }
+
+        private async void showLoadingAnim_Click(object sender, RoutedEventArgs e)
+        {
+            await Load();
         }
     }
 }

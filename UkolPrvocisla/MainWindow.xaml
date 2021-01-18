@@ -31,6 +31,7 @@
                     <Label x:Name="load" Content="" FontSize="60" Grid.Column="2" Grid.RowSpan="4" HorizontalAlignment="Center"></Label>
                     <Label Grid.Row="0" Content="Select max value:"></Label>
                     <ComboBox Grid.Row="1" Margin="10,0,10,0" x:Name="maxNumber"></ComboBox>
+                    <Button Grid.Row="3" Margin="5,0,5,0" x:Name="showLoadingAnim" Click="showLoadingAnim_Click" Content="Show loading"></Button>
                 </Grid>
             </Border>
             <Border Grid.Row="1">
