@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UkolPrvocisla
 {
@@ -24,15 +13,30 @@ namespace UkolPrvocisla
     {
         bool con = false;
         int ind = 0;
-        public event PropertyChangedEventHandler PropertyChanged;
-        static CancellationTokenSource cts;
-        CancellationToken ct;
         bool one = false;
         bool two = false;
         bool three = false;
+
+        private string charLoad;
+
+        public string CharLoad
+        {
+            get { return charLoad; }
+            set
+            {
+                charLoad = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CharLoad"));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        static CancellationTokenSource cts;
+
+        CancellationToken ct;
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
             maxNumber.Items.Add("100");
             maxNumber.Items.Add("10000");
             maxNumber.Items.Add("1000000");
@@ -79,8 +83,6 @@ namespace UkolPrvocisla
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
             string text = "";
-            cts = new CancellationTokenSource();
-            ct = cts.Token;
             await Task.Run(() =>
             {
                 for (int i = 1; i < number; i++)
@@ -131,8 +133,6 @@ namespace UkolPrvocisla
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
             string text = "";
-            cts = new CancellationTokenSource();
-            ct = cts.Token;
             await Task.Run(() =>
             {
                 for (int i = 1; i < number; i++)
@@ -184,8 +184,6 @@ namespace UkolPrvocisla
 
             int number = Convert.ToInt32(maxNumber.SelectedItem);
             string text = "";
-            cts = new CancellationTokenSource();
-            ct = cts.Token;
             await Task.Run(() =>
             {
                 for (int i = 1; i < number; i++)
@@ -224,26 +222,82 @@ namespace UkolPrvocisla
                 tbWriteNumbersThree.Text = text;
         }
 
-        private async Task Load()
+        private async Task<int> TocSeVrtuleAsync()
         {
+            int i = 0;
+
             await Task.Run(() => {
                 while (ct.IsCancellationRequested == false)
                 {
-                    load.Content = "-";
+                    i++;
+                    CharLoad = "-";
                     Thread.Sleep(500);
-                    load.Content = "|";
+                    CharLoad = "\\";
                     Thread.Sleep(500);
-                    load.Content = "\\";
+                    CharLoad = "|";
                     Thread.Sleep(500);
-                    load.Content = "/";
+                    CharLoad = "/";
                     Thread.Sleep(500);
                 }
             });
+            return i;
         }
 
         private async void showLoadingAnim_Click(object sender, RoutedEventArgs e)
         {
-            await Load();
+            int i = await TocSeVrtuleAsync();
+            CharLoad = (i / 2).ToString() + "sec";
+        }
+
+        private async void allPrimeNumbersEndNine_Click(object sender, RoutedEventArgs e)
+        {
+            if (maxNumber.SelectedItem == null)
+            {
+                MessageBox.Show("You have to select every combobox.", "Error", MessageBoxButton.OK);
+                return;
+            }
+            cts = new CancellationTokenSource();
+            ct = cts.Token;
+            byte z = CheckTextBoxes();
+
+            int number = Convert.ToInt32(maxNumber.SelectedItem);
+            string text = "";
+            await Task.Run(() =>
+            {
+                for (int i = 1; i < number; i++)
+                {
+                    if (i <= 1) continue;
+                    if (i == 2)
+                    {
+                        if (i % (10) == 9)
+                            text += i + ", ";
+                        continue;
+                    }
+                    if (i % 2 == 0) continue;
+
+                    var boundary = (int)Math.Floor(Math.Sqrt(i));
+
+                    for (int y = 3; y <= boundary; y += 2)
+                        if (i % y == 0)
+                            con = true;
+
+                    if (con)
+                    {
+                        con = false;
+                        continue;
+                    }
+
+                    if (i % (10) == 9)
+                        text += i + ", ";
+                }
+                cts.Cancel();
+            });
+            if (z == 1)
+                tbWriteNumbers.Text = text;
+            else if (z == 2)
+                tbWriteNumbersTwo.Text = text;
+            else if (z == 3)
+                tbWriteNumbersThree.Text = text;
         }
     }
 }
