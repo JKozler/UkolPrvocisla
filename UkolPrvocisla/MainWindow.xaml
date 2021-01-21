@@ -26,10 +26,10 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime number." x:Name="allPrimeNumbers" Click="allPrimeNumbers_Click" Background="#FFD7FFB6"></Button>
-                    <Button Grid.Row="1" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime numbers which ends with number 3." x:Name="allPrimeNumbersEndThree" Click="allPrimeNumbersEndThree_Click" Background="#FFD7FFB6"></Button>
-                    <Button Grid.Row="2" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime numbers which ends with number 7." x:Name="allPrimeNumbersEndSeven" Click="allPrimeNumbersEndSeven_Click" Background="#FFD7FFB6"></Button>
-                    <Button Grid.Row="3" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime numbers which ends with number 9." x:Name="allPrimeNumbersEndNine" Click="allPrimeNumbersEndNine_Click" Background="#FFD7FFB6"></Button>
+                    <Button Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime number." x:Name="allPrimeNumbers" Click="allPrimeNumbers_Click" Background="#FFD7FFB6"></Button>
+                    <Button Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime numbers which ends with number 3." x:Name="allPrimeNumbersEndThree" Click="allPrimeNumbersEndThree_Click" Background="#FFD7FFB6"></Button>
+                    <Button Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime numbers which ends with number 7." x:Name="allPrimeNumbersEndSeven" Click="allPrimeNumbersEndSeven_Click" Background="#FFD7FFB6"></Button>
+                    <Button Grid.ColumnSpan="2" Grid.Row="3" Grid.Column="1" Margin="5,0,5,0" Content="Find all prime numbers which ends with number 9." x:Name="allPrimeNumbersEndNine" Click="allPrimeNumbersEndNine_Click" Background="#FFD7FFB6"></Button>
                     <Label x:Name="load" Content="{Binding CharLoad}" FontSize="60" Grid.Column="2" Grid.RowSpan="4" HorizontalAlignment="Center" BorderBrush="{x:Null}"></Label>
                     <Label Grid.Row="0" Content="Select max value:"></Label>
                     <ComboBox Grid.Row="1" Margin="10,0,10,0" x:Name="maxNumber"></ComboBox>
